@@ -1,8 +1,46 @@
-# jsonapi-serializers
+# JSON.api-serializers
 
-JSON API Serializers is a module for Django Rest Framework that makes it easier to create RelatedObject fields which need to be wrapped in data.
+A JSON api often has a more complex structure than what Django-Rest-Framework vanilla serializers have. This module is born out of my attempt at making building API's that follow the [jsonapi.org](jsonapi.org), standard. This module builds on django-rest-framework's serializers to allow for a more compositional approach.
 
-So far, usage.
+Currently `JSON.api-serializers` adds two new features. `BaseProxyRelationalField` which allows you to wrap a field in an arbitary dictionary, while maintaing read/write abilities. It also adds a serializer `GroupedSerializer` that allows you to build serializers in a more compositional maner without sacraficing read/write capibilities.
+
+## GroupedSerializer
+
+    class ExampleProductSerializer(GroupedSerializer):
+        id = serializers.IntegerField()
+        name = serializers.CharField()
+        date_created = serializers.DateField()
+        date_modified = serializers.DateField()
+        
+        def set_composition(self):
+            self.composition = Composition(
+                {
+                    "attributes": self.create_field_group(['name', 'id',]),
+                    "dates":self.create_field_group(['date_created', 'date_modified',])
+                }
+            )
+        
+        class Meta:
+            model = ExampleProduct
+
+This will wrap the fields in "attributes" and "dates" fields, outputting this
+
+    {
+        "attributes": {
+            "name": "Example Product",
+            "id": 23
+        },
+        "dates": {
+            "date_created": "Feb 11 '14 14:03",
+            "date_modified": "Feb 11 '14 15:03",
+        }
+    }
+
+Unlike using a serializer method field, the fields remain writable.
+
+## BaseProxyRelationField/HyperlinkedProxyRelationalField
+
+Is a field which allows you to wrap individual fields in arbitary JSON while staying writable.
 
     class ChoiceField(JSONAPIRelationField):
         def build_links(self):
@@ -45,9 +83,5 @@ This will output something like
       "id": 1,
       "question": "p1"
     }
-
-# Future goals
-
-To be able to have a generic wrapping syntax that allows you wrap any RelatedField in in JSONAPIField, and proxy it's methods. Also creating a serializer for grouping of realtions and attributes. 
 
 The end goal is to have a simple module that makes doing things like [this](http://jsonapi.org/) simple to create without sacraficing control over serialization.
