@@ -44,3 +44,5 @@ htmlcov
 
 # sphinx build dir
 docs/_build
+
+.ropeproject
