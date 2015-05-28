@@ -4,6 +4,12 @@ A JSON api often has a more complex structure than what Django-Rest-Framework va
 
 Currently `JSON.api-serializers` adds two new features. `BaseProxyRelationalField` which allows you to wrap a field in an arbitary dictionary, while maintaing read/write abilities. It also adds a serializer `GroupedSerializer` that allows you to build serializers in a more compositional maner without sacraficing read/write capibilities.
 
+## Install
+
+Right now install from github with
+    
+    pip install -e https://github.com/rollokb/jsonapi-serializers
+
 ## GroupedSerializer
 
     class ExampleProductSerializer(GroupedSerializer):
