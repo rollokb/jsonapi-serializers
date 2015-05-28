@@ -1,12 +1,18 @@
 # JSON.api-serializers
 
-A JSON api often has a more complex structure than what Django-Rest-Framework vanilla serializers have. This module is born out of my attempt at making building API's that follow the [jsonapi.org](jsonapi.org), standard. This module builds on django-rest-framework's serializers to allow for a more compositional approach.
+A JSON RESTful API usual requires a more complex output than what `djangorestframework` normally give you. This module is born out of my attempt at making building API's that follow the [jsonapi.org](jsonapi.org), standard. 
 
-Currently `JSON.api-serializers` adds two new features. `BaseProxyRelationalField` which allows you to wrap a field in an arbitary dictionary, while maintaing read/write abilities. It also adds a serializer `GroupedSerializer` that allows you to build serializers in a more compositional maner without sacraficing read/write capibilities.
+## Summary
+
+This module builds on django-rest-framework's serializers to allow for a more compositional approach to defining serializers.
+
+Currently `JSON.api-serializers` adds two new features. `BaseProxyRelationalField` which allows you to wrap a field in an arbitrary dictionary, while maintaining read/write abilities. It also adds a serializer `GroupedSerializer` that allows you to build serializers in a more compositional manner without sacrificing read/write capabilities.
+
+
 
 ## Install
 
-Right now install from github with
+Right now install from Github with
     
     pip install -e https://github.com/rollokb/jsonapi-serializers
 
@@ -46,7 +52,7 @@ Unlike using a serializer method field, the fields remain writable.
 
 ## BaseProxyRelationField/HyperlinkedProxyRelationalField
 
-Is a field which allows you to wrap individual fields in arbitary JSON while staying writable.
+Is a field which allows you to wrap individual fields in arbitrary JSON while staying writable.
 
     class ChoiceField(JSONAPIRelationField):
         def build_links(self):
@@ -90,4 +96,4 @@ This will output something like
       "question": "p1"
     }
 
-The end goal is to have a simple module that makes doing things like [this](http://jsonapi.org/) simple to create without sacraficing control over serialization.
+The end goal is to have a simple module that makes doing things like [this](http://jsonapi.org/) simple to create without sacrificing control over serialization.
