@@ -97,3 +97,7 @@ This will output something like
     }
 
 The end goal is to have a simple module that makes doing things like [this](http://jsonapi.org/) simple to create without sacrificing control over serialization.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rollokb/jsonapi-serializers/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
